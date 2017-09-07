@@ -1,15 +1,15 @@
 package classifier.historic.domain;
 
-public class UserHistoric {
+public class UserHistoricGlobal {
     private String identifier;
     private float attention;
 
-    public UserHistoric(String identifier, float attention) {
+    public UserHistoricGlobal(String identifier, float attention) {
         this.identifier = identifier;
         this.attention = attention;
     }
 
-    public UserHistoric() {
+    public UserHistoricGlobal() {
     }
 
     public String getIdentifier() {
