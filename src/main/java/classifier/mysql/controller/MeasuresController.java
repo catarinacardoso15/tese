@@ -26,4 +26,7 @@ public class MeasuresController {
     public ArrayList<Measures> getAllMeasuresBetweenTime(long time1, long time2){
         return measuresRepository.findAllByTimeBetween(time1,time2);
     }
+    public float getAvgAttetion(long id){
+        return measuresRepository.getAvg(id);
+    }
 }

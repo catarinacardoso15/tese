@@ -11,7 +11,7 @@ public class Measures {
 
     @ManyToOne
     private Session session;
-
+    private float attention;
     private float time;
     private float usefulTime;
     private long timestamp;
@@ -54,5 +54,13 @@ public class Measures {
 
     public void setTimestamp(long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public float getAttention() {
+        return attention;
+    }
+
+    public void setAttention(float attention) {
+        this.attention = attention;
     }
 }

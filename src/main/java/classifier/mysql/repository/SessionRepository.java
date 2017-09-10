@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface SessionRepository extends CrudRepository<Session,Long> {
     public Session findByToken(String token);
-
     public ArrayList<Session> findAllByUserId(long id);
+    public  Session findByTokenAndAndUserIdentifier(String token, String user);
 
 }

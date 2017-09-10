@@ -27,9 +27,18 @@ public class SessionController {
         return sessionRepository.findAllByUserId(id);
     }
 
-    public Session update(long id, int score){
+    public Session updateDate(long id, long finalDate){
         Session s = sessionRepository.findOne(id);
-        s.setScore(score);
+        s.setTimestampFinal(finalDate);
         return sessionRepository.save(s);
+    }
+
+    public Session updateScore(String token, int score){
+       Session s = sessionRepository.findByToken(token);
+       s.setScore(score);
+       return sessionRepository.save(s);
+    }
+    public Session getSessionByTokenByUser(String token, String user){
+        return sessionRepository.findByTokenAndAndUserIdentifier(token,user);
     }
 }
