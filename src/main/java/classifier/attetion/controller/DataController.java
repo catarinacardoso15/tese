@@ -30,7 +30,7 @@ public class DataController {
         data.setFinalDate(f);
         data.setInitialDate(i);
         data.getUsersResult().forEach(d -> {
-            getDados(d.getInitialDate(), d.getFinalDate(), d);
+            getDados(data.getInitialDate(), data.getFinalDate(), d);
 
         });
         return data;

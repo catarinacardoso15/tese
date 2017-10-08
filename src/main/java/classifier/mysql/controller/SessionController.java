@@ -8,37 +8,36 @@ import java.util.ArrayList;
 
 public class SessionController {
 
-    @Autowired
-    private SessionRepository sessionRepository;
 
-    public Session save(Session s){
+
+    public Session save(SessionRepository sessionRepository,Session s){
         return sessionRepository.save(s);
     }
 
-    public Session getSession(long id){
+    public Session getSession(SessionRepository sessionRepository, long id){
         return sessionRepository.findOne(id);
     }
 
-    public Session getSessionByToken(String token){
+    public Session getSessionByToken(SessionRepository sessionRepository,String token){
         return sessionRepository.findByToken(token);
     }
 
-    public ArrayList<Session> getAllSessionsByUser(long id){
+    public ArrayList<Session> getAllSessionsByUser(SessionRepository sessionRepository,long id){
         return sessionRepository.findAllByUserId(id);
     }
 
-    public Session updateDate(long id, long finalDate){
+    public Session updateDate(SessionRepository sessionRepository, long id, long finalDate){
         Session s = sessionRepository.findOne(id);
         s.setTimestampFinal(finalDate);
         return sessionRepository.save(s);
     }
 
-    public Session updateScore(String token, int score){
+    public Session updateScore(SessionRepository sessionRepository, String token, int score){
        Session s = sessionRepository.findByToken(token);
        s.setScore(score);
        return sessionRepository.save(s);
     }
-    public Session getSessionByTokenByUser(String token, String user){
+    public Session getSessionByTokenByUser(SessionRepository sessionRepository,String token, String user){
         return sessionRepository.findByTokenAndAndUserIdentifier(token,user);
     }
 }

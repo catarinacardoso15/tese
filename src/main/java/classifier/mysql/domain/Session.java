@@ -17,6 +17,15 @@ public class Session {
     private String token;
     private Long timestampStart;
     private Long timestampFinal;
+    private float attentionSession;
+
+    public float getAttentionSession() {
+        return attentionSession;
+    }
+
+    public void setAttentionSession(float attentionSession) {
+        this.attentionSession = attentionSession;
+    }
 
     public Long getId() {
         return id;

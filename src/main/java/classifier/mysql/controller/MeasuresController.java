@@ -8,25 +8,23 @@ import java.util.ArrayList;
 
 public class MeasuresController {
 
-    @Autowired
-    private MeasuresRepository measuresRepository;
 
-    public Measures save(Measures m){
+    public Measures save(MeasuresRepository measuresRepository,Measures m){
         return measuresRepository.save(m);
     }
 
-    public Measures getMeasureBySession(long id){
+    public Measures getMeasureBySession(MeasuresRepository measuresRepository,long id){
         return measuresRepository.findBySessionId(id);
     }
 
-    public ArrayList<Measures> getAllMeasuresBySession(long id){
+    public ArrayList<Measures> getAllMeasuresBySession(MeasuresRepository measuresRepository,long id){
         return measuresRepository.findAllBySessionId(id);
     }
 
-    public ArrayList<Measures> getAllMeasuresBetweenTime(long time1, long time2){
+    public ArrayList<Measures> getAllMeasuresBetweenTime(MeasuresRepository measuresRepository,long time1, long time2){
         return measuresRepository.findAllByTimeBetween(time1,time2);
     }
-    public float getAvgAttetion(long id){
+    public float getAvgAttetion(MeasuresRepository measuresRepository,long id){
         return measuresRepository.getAvg(id);
     }
 }

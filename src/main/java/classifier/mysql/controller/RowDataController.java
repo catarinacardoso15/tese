@@ -6,18 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class RowDataController {
 
-    @Autowired
-    private RowDataRepository rowDataRepository;
 
-    public RowData getRowData(long id){
+    public RowData getRowData(RowDataRepository rowDataRepository,long id){
         return rowDataRepository.findOne(id);
     }
 
-    public RowData getRowDataByMeasure(long idMeasure){
+    public RowData getRowDataByMeasure(RowDataRepository rowDataRepository,long idMeasure){
         return rowDataRepository.findByMeasure_Id(idMeasure);
     }
 
-    public boolean save(RowData rd){
+    public boolean save(RowDataRepository rowDataRepository,RowData rd){
         rowDataRepository.save(rd);
         return true;
     }

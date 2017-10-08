@@ -1,6 +1,7 @@
 package classifier.attetion.controller;
 
 import classifier.attetion.domain.*;
+import classifier.mysql.domain.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,7 +26,7 @@ public class UserResultController {
         ArrayList<Task> list = taskToAplication(userdata.getListTask(), rule);
         long time = getTimeAtivity(userdata.getListTask(),finalDate);
         this.user.setTime(time);
-        long otherTime = getOtherTime(userdata.getListTask(),finalDate);
+        long otherTime = getOtherTime(userdata,finalDate);
         this.user.setUsefulTime(time - otherTime);
         this.user.setAttention((this.user.getUsefulTime()*100)/time);
     }
@@ -99,23 +100,34 @@ public class UserResultController {
     }
 
 
-    public long getOtherTime(ArrayList<Task> listT, Date finalD) {
+    public long getOtherTime(UserData u, Date finalD) {
         long time = 0;
         int i = 0;
-        ArrayList<Task> listTaskwork = new ArrayList<Task>();
-        for (i = 0; i < listT.size() - 1; i++) {
-            if (listT.get(i).getListT().isEmpty()) {
-                time = time + (listT.get(i + 1).getTime().getTime() - listT.get(i).getTime().getTime());
-            }else{
-                listTaskwork.add(listT.get(i));
+        for (i = 0; i < u.getListTask().size() - 1; i++) {
+
+            if (u.getListTask().get(i).getListT().isEmpty() || !peripheralUsage(u,u.getListTask().get(i).getTime(),u.getListTask().get(i + 1).getTime())) {
+                time = time + (u.getListTask().get(i + 1).getTime().getTime() - u.getListTask().get(i).getTime().getTime());
             }
         }
-        if (listT.get(i).getListT().isEmpty()) {
-            time = time + (finalD.getTime() - listT.get(i).getTime().getTime());
+        if (u.getListTask().get(i).getListT().isEmpty() || !peripheralUsage(u,u.getListTask().get(i).getTime(),finalD)) {
+            time = time + (finalD.getTime() - u.getListTask().get(i).getTime().getTime());
         }
         return time;
     }
+    private boolean peripheralUsage(UserData g, Date i, Date f) {
 
+        for (Keyboard keyboard : g.getListKeyboard()) {
+            if (keyboard.getTimestamp() >= i.getTime() && keyboard.getTimestamp() <= f.getTime()) {
+                return true;
+            }
+        }
+        for (Mouse m :g.getListMouse()){
+            if(m.getTimestamp()>=i.getTime() && m.getTimestamp()<=f.getTime()){
+                return true;
+            }
+        }
+        return false;
+    }
 
     private RowData peripheralResults(UserData ud) {
         RowData data = new RowData();
